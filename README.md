@@ -20,6 +20,7 @@ It uses **Poetry** for dependency management.
 - Python 3.11+
 - Git
 - Poetry (can be installed via official installer or pip)
+- OpenAI API key exported as environment variable called OPENAI_API_KEY
 
 ---
 
