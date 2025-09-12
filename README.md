@@ -29,6 +29,7 @@ It uses **Poetry** for dependency management.
 
 bash
 git clone https://github.com/FabricioDE/spark_sql_ai_agent.git
+
 cd spark_sql_ai_agent
 
 
