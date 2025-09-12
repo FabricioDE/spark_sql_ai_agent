@@ -44,25 +44,26 @@ bash
 # Using official installer
 curl -sSL https://install.python-poetry.org | python3 -
 
-# Or using pip
+#### Or using pip
 pip install --user poetry
 
-# Make sure Poetry's bin directory is in your PATH
+#### Make sure Poetry's bin directory is in your PATH
 export PATH="$HOME/.local/bin:$PATH"
-# Add this line to your shell configuration (~/.bashrc or ~/.zshrc) to make it permanent
+#### Add this line to your shell configuration (~/.bashrc or ~/.zshrc) to make it permanent
 
-# Check installation
+#### Check installation
 poetry --version
 
+**Windows**
 
-# Using official installer
+#### Using official installer
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
 
-# Or using pip
+#### Or using pip
 pip install --user poetry
 
-# Add Poetry to PATH (example for PowerShell)
+#### Add Poetry to PATH (example for PowerShell)
 setx PATH "$env:USERPROFILE\AppData\Roaming\Python\Python311\Scripts;$env:PATH"
 
-# Check installation
+#### Check installation
 poetry --version
