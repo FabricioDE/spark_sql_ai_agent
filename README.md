@@ -40,8 +40,9 @@ You can install Poetry on macOS/Linux or Windows using the commands below:
 
 **macOS / Linux:**
 
+
+#### Using official installer
 bash
-# Using official installer
 curl -sSL https://install.python-poetry.org | python3 -
 
 #### Or using pip
