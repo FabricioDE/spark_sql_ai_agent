@@ -4,6 +4,7 @@ import pickle
 from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from core.config import sql_file,embeddings_file,glossary_file,output_name
 
 
 
@@ -26,10 +27,8 @@ class Worker:
     def write_file(self, name: str, content: str) -> str:
         self.create_dir()
         path = self.path_output + name
-
         if not path.endswith(".sql"):
             path += ".sql"
-
         with open(path, "w", encoding="utf-8") as f:
             f.write(content.strip() + "\n")
 
@@ -40,6 +39,7 @@ class Agent(Worker):
     def __init__(self):
         super().__init__(output = "../../output/") 
         self.llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+        self.agent()
         
 
     def clean_sql(self, path: str) -> str:
@@ -51,16 +51,14 @@ class Agent(Worker):
 
     def load_embeddings(self, pkl_path: str) -> str:
         if os.path.exists(pkl_path):
-            with open(pkl_path, "rb") as f:
-                embeddings = pickle.load(f)
+            embeddings = self.read_file(pkl_path)
             return embeddings
         return None
 
     def load_glossary(self, pkl_path: str) -> str:
         if os.path.exists(pkl_path):
-            with open(pkl_path, "rb") as f:
-                embeddings = pickle.load(f)
-            return embeddings
+            glossary = self.read_file(pkl_path)
+            return glossary
         return None
 
     def sql_to_spark(self, sql_clean: str, output_name: str, embeddings=None, glossary=None) -> str:
@@ -78,6 +76,12 @@ class Agent(Worker):
         spark_sql = chain.run({})
         self.write_file(output_name, spark_sql)
         print('File Converted')
+
+    def agent(self):
+        sql_cleaned = self.clean_sql(sql_file)
+        embeddings = self.load_embeddings(embeddings_file)  
+        glossary = self.load_glossary(glossary_file)
+        spark_sql = self.sql_to_spark(sql_cleaned, output_name, embeddings, glossary)
 
     
 
